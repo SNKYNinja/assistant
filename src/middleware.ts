@@ -2,22 +2,25 @@ import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default async function middleware(request: NextRequest) {
-  const isAuthenticated = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  });
-  const dashboard = request.nextUrl.pathname.startsWith('/dashboard');
+    const isAuthenticated = await getToken({
+        req: request,
+        secret: process.env.AUTH_SECRET,
+    });
 
-  if (dashboard && !isAuthenticated) {
-    return NextResponse.redirect(new URL('/auth', request.nextUrl.origin));
-  }
+    const path = request.nextUrl.pathname
 
-  return NextResponse.next();
+    const dashboard = path.startsWith('/dashboard');
+
+    if (dashboard && !isAuthenticated) {
+        return NextResponse.redirect(new URL('/auth', request.nextUrl.origin));
+    }
+
+    return NextResponse.next();
 }
 
 // Run middleware on the dashboard route
 export const config = {
-  matcher: ['/dashboard/:path*'],
+    matcher: ['/dashboard/:path*'],
 };
 // This middleware checks if the user is authenticated before allowing access to the dashboard.
 // route and all its sub-routes.
