@@ -8,9 +8,9 @@ export default async function middleware(request: NextRequest) {
     });
     const dashboard = request.nextUrl.pathname.startsWith('/dashboard');
 
-    if (dashboard && !isAuthenticated) {
-        return NextResponse.redirect(new URL('/auth', request.nextUrl.origin));
-    }
+    // if (dashboard && !isAuthenticated) {
+    //     return NextResponse.redirect(new URL('/auth', request.nextUrl.origin));
+    // }
 
     return NextResponse.next();
 }
