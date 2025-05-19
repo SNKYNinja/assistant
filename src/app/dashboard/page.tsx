@@ -5,12 +5,13 @@ import { createAssistantDefaultMessage, getMessages } from '@/actions/messages';
 import { getCalendarEvents } from '@/actions/calendar';
 import { getEmails } from '@/actions/emails';
 import { getReminders } from '@/actions/reminder';
+import { redirect } from 'next/navigation';
 
 const Dashboard = async () => {
     const session = await auth();
 
     if (!session) {
-        return <div>Unauthorized</div>;
+        return redirect("/auth");
     }
 
     const user = await getCurrentUser(session);
