@@ -6,10 +6,7 @@ export default async function middleware(request: NextRequest) {
         req: request,
         secret: process.env.AUTH_SECRET,
     });
-
-    const path = request.nextUrl.pathname
-
-    const dashboard = path.startsWith('/dashboard');
+    const dashboard = request.nextUrl.pathname.startsWith('/dashboard');
 
     if (dashboard && !isAuthenticated) {
         return NextResponse.redirect(new URL('/auth', request.nextUrl.origin));

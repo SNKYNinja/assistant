@@ -2,17 +2,17 @@ import { redirect } from 'next/navigation';
 import { auth } from '../../../auth';
 
 export default async function AuthLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  const session = await auth();
+    const session = await auth();
 
-  console.log('Session:', session);
+    console.log('Session:', session);
 
-  if (session) {
-    return redirect('/dashboard');
-  }
+    if (session) {
+        return redirect('/dashboard');
+    }
 
-  return <>{children}</>;
+    return <>{children}</>;
 }
